@@ -11,8 +11,21 @@ const be = require('blockexplorer');
  * 
  */
 function getBlock(index) {
-  	//add your code here
-  	
+		//add your code here
+		be.blockIndex(index)
+		.then(hash => {
+			hash = JSON.parse(hash).blockHash
+			be.block(hash)
+				.then( block => {
+					console.log(JSON.parse(block))
+				})
+				.catch( err => {
+					console.log(err)
+				})
+		})
+		.catch(err => {
+			console.log(err)
+		})
 }
 
 /**
@@ -25,5 +38,5 @@ function getBlock(index) {
         getBlock(i);
         i++;
 		if (i < 3) theLoop(i);
-	}, 3000);
+	}, 4000);
   })(0);
